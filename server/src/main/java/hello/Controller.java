@@ -47,11 +47,10 @@ public class Controller {
     }
 
 
-    public ArrayList<Zutat> gibRezeptdetailsDurchId(int id)
+    public ArrayList<Zutat> gibZutatenFuerRezeptId(int id)
     {
         ArrayList<Zutat> list = new ArrayList<>();
 
-        String s ="";
         String sql = "SELECT zutat_id, menge, z.name, z.alkohol " +
                 "FROM rezept_zutaten INNER JOIN zutaten z " +
                 "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + Integer.toString(id);
@@ -78,6 +77,29 @@ public class Controller {
         }
 
         return list;
+    }
 
+    public Rezept gibRezeptFuerId(int id) {
+        String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + id;
+
+        MySQLAccess mySQLAccess = new MySQLAccess();
+
+
+
+        try {
+            PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+
+            return new Rezept(id,   resultSet.getString("name"),
+                                    resultSet.getString("beschreibung"),
+                                    gibZutatenFuerRezeptId(id));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            mySQLAccess.disconnect();
+        }
     }
 }
