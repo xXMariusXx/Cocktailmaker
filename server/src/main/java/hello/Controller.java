@@ -79,7 +79,7 @@ public class Controller {
 
             while (resultSet.next())
             {
-                s = s + resultSet.getString("zutat.id");
+                s = s + resultSet.getString("zutat_id");
                 s = s + resultSet.getString("menge");
                 s = s + resultSet.getString("z.name");
                 s = s + resultSet.getString("z.alkohol");
