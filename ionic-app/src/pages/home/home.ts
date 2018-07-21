@@ -10,14 +10,15 @@ import {Zutaten} from "../../model/zutaten";
   templateUrl: 'home.html',
 })
 export class HomePage {
-  zutaten: Zutaten[];
+  zutaten: Zutaten[] = [];
   result : Observable<any>;
-
+  zutatentoShow : Zutaten[] = [];
   constructor(public navCtrl: NavController, public httpClient: HttpClient) {
     this.result = this.httpClient.get('http://localhost:8080/zutaten');
     this.result
       .subscribe(data => {
-        this.zutaten = data;
+        this.zutatentoShow = this.zutaten = data;
+
         console.log('my data: ', data);})}
     //this.initializeZutaten(this.zutaten);
 
@@ -28,17 +29,17 @@ export class HomePage {
 
   getItems(ev: any) {
     // Reset items back to all of the items
-    this.initializeZutaten();
+    //this.initializeZutaten();
 
     // set val to the value of the searchbar
     const searchString = ev.target.value;
 
     // if the value is an empty string don't filter the items
-    if (searchString && searchString.trim() != '') {
-      this.zutaten = this.zutaten.filter((zutat) => {
+    if (searchString &&  searchString.trim()  != '') {
+      this.zutatentoShow = this.zutaten.filter((zutat) => {
         return (zutat.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
-      })
-    }
+      });
+    }else if(searchString.trim()  == '') this.zutatentoShow = this.zutaten;
   }
 
   presentActionSheet(ev: any)
