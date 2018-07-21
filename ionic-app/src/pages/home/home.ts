@@ -39,8 +39,4 @@ export class HomePage {
 
   }
 
-  isMarked()
-  {
-
-  }
 }

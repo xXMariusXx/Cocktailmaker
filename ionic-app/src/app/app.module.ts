@@ -9,7 +9,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {RezeptListe} from "../pages/rezept-liste/rezept-liste.component";
-import { SericeProvider } from '../providers/serice/serice';
 import { ServiceProvider } from '../providers/service/service';
 
 @NgModule({
@@ -34,7 +33,6 @@ import { ServiceProvider } from '../providers/service/service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SericeProvider,
     ServiceProvider
   ]
 })
