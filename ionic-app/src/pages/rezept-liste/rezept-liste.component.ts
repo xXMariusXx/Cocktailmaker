@@ -15,7 +15,7 @@ import { NavParams } from 'ionic-angular';
 })
 export class RezeptListe {
 
-  @Input()
+
   constructor(private navParams: NavParams) {
     var zutaten = navParams.get("zutaten");
   }

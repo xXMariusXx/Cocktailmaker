@@ -1,21 +1,29 @@
 import { Component } from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {RezeptListe} from "../rezept-liste/rezept-liste.component";
+import { NavController } from 'ionic-angular';
+import { RezeptListe } from "../rezept-liste/rezept-liste.component";
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import {Zutaten} from "../../model/zutaten";
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
+  zutaten: Zutaten[];
+  result : Observable<any>;
 
-  zutaten: string[];
+  constructor(public navCtrl: NavController, public httpClient: HttpClient) {
+    this.result = this.httpClient.get('http://localhost:8080/zutaten');
+    this.result
+      .subscribe(data => {
+        this.zutaten = data;
+        console.log('my data: ', data);})}
+    //this.initializeZutaten(this.zutaten);
 
-  constructor(public navCtrl: NavController) {
-    this.initializeZutaten();
-  }
 
   initializeZutaten() {
-    this.zutaten = ['Vodka', 'Saft', 'wasser'];
+    //this.zutaten = 0;
   }
 
   getItems(ev: any) {
@@ -28,7 +36,7 @@ export class HomePage {
     // if the value is an empty string don't filter the items
     if (searchString && searchString.trim() != '') {
       this.zutaten = this.zutaten.filter((zutat) => {
-        return (zutat.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
+        return (zutat.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
       })
     }
   }
