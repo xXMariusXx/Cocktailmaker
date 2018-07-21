@@ -38,4 +38,9 @@ export class HomePage {
     this.navCtrl.push(RezeptListe, {"zutaten": this.zutaten});
 
   }
+
+  isMarked()
+  {
+
+  }
 }
