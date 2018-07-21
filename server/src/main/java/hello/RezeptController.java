@@ -18,7 +18,7 @@ public class RezeptController {
 
     }
 
-    @PostMapping("/find")
+    @PostMapping(value = "/find", produces = "application/json")
     public @ResponseBody Object findRezepte(@RequestBody Zutat[] obj){
         Controller c = new Controller();
         return c.gibRezepteNamenIDfuerZutaten(obj);
