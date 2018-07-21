@@ -7,8 +7,29 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  zutaten: string[];
 
+  constructor(public navCtrl: NavController) {
+    this.initializeZutaten();
+  }
+
+  initializeZutaten() {
+    this.zutaten = ['Vodka', 'Saft', 'wasser'];
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeZutaten();
+
+    // set val to the value of the searchbar
+    const searchString = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (searchString && searchString.trim() != '') {
+      this.zutaten = this.zutaten.filter((zutat) => {
+        return (zutat.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
+      })
+    }
   }
 
 }
