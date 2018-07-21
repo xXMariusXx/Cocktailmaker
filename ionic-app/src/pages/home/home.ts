@@ -20,12 +20,6 @@ export class HomePage {
         this.zutatentoShow = this.zutaten = data;
 
         console.log('my data: ', data);})}
-    //this.initializeZutaten(this.zutaten);
-
-
-  initializeZutaten() {
-    //this.zutaten = 0;
-  }
 
   getItems(ev: any) {
     // Reset items back to all of the items
@@ -44,7 +38,7 @@ export class HomePage {
 
   presentActionSheet(ev: any)
   {
-    this.navCtrl.push(RezeptListe, {"zutaten": this.zutaten});
+    this.navCtrl.push(RezeptListe, {"gewaehlteZutaten": this.zutaten});
 
   }
 

@@ -13,6 +13,15 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-list>
+
+    <ion-item *ngFor="let zutat of gewaehlteZutatenWeb">
+      <ion-label>{{ zutat.name }}</ion-label>
+      <ion-checkbox color="blue" checked="false"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
