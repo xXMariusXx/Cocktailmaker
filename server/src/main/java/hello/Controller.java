@@ -50,7 +50,7 @@ public class Controller {
     {
         ArrayList<String> list = new ArrayList();
         String s = "";
-        String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + id;
+        String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + Integer.toString(id);
 
         MySQLAccess mySQLAccess = new MySQLAccess();
         try {
@@ -71,7 +71,7 @@ public class Controller {
 
         sql = "SELECT zutat_id, menge, z.name, z.alkohol " +
                 "FROM rezept_zutaten INNER JOIN zutaten z " +
-                "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + id;
+                "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + Integer.toString(id);
         mySQLAccess = new MySQLAccess();
         try {
             PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
