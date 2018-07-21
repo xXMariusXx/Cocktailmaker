@@ -25,7 +25,7 @@ public class Controller {
                 if (resultSet.getInt("alkohol") > 0)
                     hatAlk = true;
                 zutaten.add(new Zutat(resultSet.getInt("id"),
-                                    resultSet.getString("name"),
+                                    resultSet.getString("name"),0,
                                     hatAlk));
 
             }
@@ -46,28 +46,9 @@ public class Controller {
     }
 
 
-    public ArrayList<String> gibRezeptdetailsDurchId(int id)
+    public ArrayList<Zutat> gibRezeptdetailsDurchId(int id)
     {
-        ArrayList<String> list = new ArrayList<>();
-        /*String s = "";
-        String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + Integer.toString(id);
-
-        MySQLAccess mySQLAccess = new MySQLAccess();
-        try {
-            PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-
-            s = s + resultSet.getString("name");
-            s = s + resultSet.getString("beschreibung");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            mySQLAccess.disconnect();
-        }
-
-        list.add(s);*/
-        //s="";
+        ArrayList<Zutat> list = new ArrayList<>();
 
         String s ="";
         String sql = "SELECT zutat_id, menge, z.name, z.alkohol " +
@@ -80,12 +61,13 @@ public class Controller {
 
             while (resultSet.next())
             {
-                s = s + resultSet.getString("zutat_id");
-                s = s + resultSet.getString("menge");
-                s = s + resultSet.getString("z.name");
-                s = s + resultSet.getString("z.alkohol");
-                list.add(s);
-                s = "";
+                boolean hatAlk = false;
+                if (resultSet.getInt("alkohol") > 0)
+                    hatAlk = true;
+                list.add(new Zutat(resultSet.getInt("zutat_id"),
+                                    resultSet.getString("name"),
+                                    resultSet.getInt("menge"),
+                                    hatAlk));
             }
 
         } catch (SQLException e) {

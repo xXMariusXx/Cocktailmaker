@@ -4,6 +4,7 @@ public class Zutat {
     private int id;
     private String name;
     private int menge;
+    private boolean alkohol;
 
     public void setId(int id) {
         this.id = id;
@@ -21,15 +22,14 @@ public class Zutat {
         this.alkohol = alkohol;
     }
 
-    private boolean alkohol;
-
     public Zutat() {
     }
 
-    public Zutat(int id, String name, boolean alkohol)
+    public Zutat(int id, String name, int menge, boolean alkohol)
     {
         this.id = id;
         this.alkohol = alkohol;
+        this.menge = menge;
         this.name = name;
     }
 
