@@ -4,17 +4,17 @@ import javax.json.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controller {
 
-    public void gibZutatenliste()
+    public ArrayList gibZutatenliste()
     {
         MySQLAccess mySQLAccess = new MySQLAccess();
 
         String sql = "SELECT * FROM zutaten";
 
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        JsonObjectBuilder objectBuilder;
+        ArrayList zutaten = new ArrayList();
 
         try {
             PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
@@ -22,11 +22,11 @@ public class Controller {
 
             while (resultSet.next())
             {
-                objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("id", resultSet.getInt("id"));
-                objectBuilder.add("name", resultSet.getString("name"));
-                objectBuilder.add("alkohol", resultSet.getInt("alkohol"));
-                arrayBuilder.add(objectBuilder);
+                boolean b = false;
+                if (resultSet.getInt("alkohol") > 0)
+                    b = true;
+                zutaten.add(new Zutat(resultSet.getInt("id"),resultSet.getString("name"),b));
+
             }
             System.out.println(resultSet);
         } catch (SQLException e) {
@@ -35,6 +35,6 @@ public class Controller {
             mySQLAccess.disconnect();
         }
 
-        JsonArray jsonArray = arrayBuilder.build();
+        return zutaten;
     }
 }
