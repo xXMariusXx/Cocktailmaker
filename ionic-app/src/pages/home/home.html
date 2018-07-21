@@ -1,24 +1,32 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Zuhause Bruda</ion-title>
+    <ion-title>Cocktailmaker</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Cockmacher</h2>
+  <h2>Zutaten</h2>
   <p>
-    Vorhandenen Alkohol auswählen:
+    Wählen Sie die Zutaten, die Sie zuhause haben, aus
   </p>
 
-<ion-item>
-  <ion-label>Vodka</ion-label>
-  <ion-checkbox color="blue" checked="false"></ion-checkbox>
-</ion-item>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
-<ion-item>
-  <ion-label>Saft</ion-label>
-  <ion-checkbox color="blue" checked="false"></ion-checkbox>
-</ion-item>
+  <ion-list>
+
+    <!--<ion-item>
+      <ion-label>Vodka</ion-label>
+      <ion-checkbox color="blue" checked="false"></ion-checkbox>
+    </ion-item>-->
+
+    <ion-item *ngFor="let zutat of zutaten">
+      <ion-label>{{ zutat }}</ion-label>
+      <ion-checkbox color="blue" checked="false"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button round>Generate Cocktails</button>
 
 
 </ion-content>
