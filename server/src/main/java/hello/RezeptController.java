@@ -12,7 +12,7 @@ public class RezeptController {
 
     @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
-    List<String> getRezept(@RequestParam(value = "id") int id){
+    List<Zutat> getRezept(@RequestParam(value = "id") int id){
         Controller c = new Controller();
     return c.gibRezeptdetailsDurchId(id);
 

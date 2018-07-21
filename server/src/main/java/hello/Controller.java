@@ -33,6 +33,7 @@ public class Controller {
             e.printStackTrace();
         } finally {
             mySQLAccess.disconnect();
+
         }
 
         return zutaten;
