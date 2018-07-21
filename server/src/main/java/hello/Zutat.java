@@ -3,6 +3,7 @@ package hello;
 public class Zutat {
     private int id;
     private String name;
+    private int menge;
     private boolean alkohol;
 
     public Zutat(int id, String name, boolean alkohol)
@@ -18,5 +19,9 @@ public class Zutat {
 
     public boolean isAlkohol() {
         return alkohol;
+    }
+
+    public int getMenge() {
+        return menge;
     }
 }

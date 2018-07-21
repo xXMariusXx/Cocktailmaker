@@ -29,7 +29,6 @@ public class Controller {
                                     hatAlk));
 
             }
-            System.out.println(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -41,15 +40,60 @@ public class Controller {
 
     public ArrayList gibRezepteNamenIDfuerZutaten(Zutat[] zutaten)
     {
-        ArrayList passendeRezepte = new ArrayList();
+        ArrayList<Rezept> passendeRezepte = new ArrayList<Rezept>();
 
-        for ()
-        passendeRezepte.add(new Rezept())
+        return passendeRezepte;
     }
 
 
-    public Rezept gibRezeptdetailsDurchId(int id)
+    public ArrayList<String> gibRezeptdetailsDurchId(int id)
     {
-        String sql = "SELECT rezept from rezept";
+        ArrayList<String> list = new ArrayList();
+        String s = "";
+        String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + id;
+
+        MySQLAccess mySQLAccess = new MySQLAccess();
+        try {
+            PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            s = s + resultSet.getString("name");
+            s = s + resultSet.getString("beschreibung");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            mySQLAccess.disconnect();
+        }
+
+        list.add(s);
+        s="";
+
+        sql = "SELECT zutat_id, menge, z.name, z.alkohol " +
+                "FROM rezept_zutaten INNER JOIN zutaten z " +
+                "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + id;
+        mySQLAccess = new MySQLAccess();
+        try {
+            PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next())
+            {
+                s = s + resultSet.getString("zutat.id");
+                s = s + resultSet.getString("menge");
+                s = s + resultSet.getString("z.name");
+                s = s + resultSet.getString("z.alkohol");
+                list.add(s);
+                s = "";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            mySQLAccess.disconnect();
+        }
+
+        return list;
+
     }
 }
