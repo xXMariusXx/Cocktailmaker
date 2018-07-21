@@ -1,6 +1,5 @@
 package hello;
 
-import javax.json.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,13 +7,13 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    public ArrayList gibZutatenliste()
+    public ArrayList<Zutat> gibZutatenliste()
     {
         MySQLAccess mySQLAccess = new MySQLAccess();
 
         String sql = "SELECT * FROM zutaten";
 
-        ArrayList zutaten = new ArrayList();
+        ArrayList<Zutat> zutaten = new ArrayList<>();
 
         try {
             PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
@@ -22,10 +21,12 @@ public class Controller {
 
             while (resultSet.next())
             {
-                boolean b = false;
+                boolean hatAlk = false;
                 if (resultSet.getInt("alkohol") > 0)
-                    b = true;
-                zutaten.add(new Zutat(resultSet.getInt("id"),resultSet.getString("name"),b));
+                    hatAlk = true;
+                zutaten.add(new Zutat(resultSet.getInt("id"),
+                                    resultSet.getString("name"),
+                                    hatAlk));
 
             }
             System.out.println(resultSet);
@@ -36,5 +37,19 @@ public class Controller {
         }
 
         return zutaten;
+    }
+
+    public ArrayList gibRezepteNamenIDfuerZutaten(Zutat[] zutaten)
+    {
+        ArrayList passendeRezepte = new ArrayList();
+
+        for ()
+        passendeRezepte.add(new Rezept())
+    }
+
+
+    public Rezept gibRezeptdetailsDurchId(int id)
+    {
+        String sql = "SELECT rezept from rezept";
     }
 }
