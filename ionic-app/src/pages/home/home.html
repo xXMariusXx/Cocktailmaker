@@ -14,11 +14,6 @@
 
   <ion-list>
 
-    <!--<ion-item>
-      <ion-label>Vodka</ion-label>
-      <ion-checkbox color="blue" checked="false"></ion-checkbox>
-    </ion-item>-->
-
     <ion-item *ngFor="let zutat of zutaten">
       <ion-label>{{ zutat }}</ion-label>
       <ion-checkbox color="blue" checked="false"></ion-checkbox>
@@ -26,7 +21,7 @@
 
   </ion-list>
 
-  <button ion-button round>Generate Cocktails</button>
+  <button ion-button color="danger" (click)="presentActionSheet($event)" round>Generate Cocktails</button>
 
 
 </ion-content>

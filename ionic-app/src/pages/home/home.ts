@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController} from 'ionic-angular';
+import {RezeptListe} from "../rezept-liste/rezept-liste.component";
 
 @Component({
   selector: 'page-home',
@@ -32,4 +33,9 @@ export class HomePage {
     }
   }
 
+  presentActionSheet(ev: any)
+  {
+    this.navCtrl.push(RezeptListe, {"zutaten": this.zutaten});
+
+  }
 }
