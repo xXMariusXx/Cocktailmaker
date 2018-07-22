@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Zutaten</h2>
+  <h2>Rezepte</h2>
   <ion-list>
-    <ion-item *ngFor="let zutat of zutatenToShow">
-      <ion-label>{{ zutat.name }}</ion-label>
+    <ion-item *ngFor="let rezept of gefundeneRezepte" (click)="showRecipe($event, rezept)">
+      <ion-label>{{ rezept.name }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
