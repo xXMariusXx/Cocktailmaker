@@ -1,8 +1,8 @@
 import {Zutat} from "./zutat";
 
 export class Rezepte{
-  id: Number;
-  name: String;
-  beschreibung: String;
+  id: number;
+  name: string;
+  beschreibung: string;
   zutaten: Zutat[];
 }
