@@ -7,9 +7,7 @@ import java.util.Properties;
 
 public class MySQLAccess {
 
-    // init database constants
-    private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://51.255.49.81:3306/mysqlDoHack18?characterEncoding=UTF-8";
+    private static final String DATABASE_URL = "jdbc:mysql://51.255.49.81:3306/mysqlDoHack18";
     private static final String USERNAME = "mysqlDoHack18";
     private static final String PASSWORD = "myPWDoHack18";
 
