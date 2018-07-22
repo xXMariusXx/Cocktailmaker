@@ -1,5 +1,7 @@
-package hello;
+package getraenkeServer;
 
+import getraenkeServer.model.Rezept;
+import getraenkeServer.model.Zutat;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,7 +12,8 @@ public class RezeptController {
     }
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody Rezept getRezept(@RequestParam(value = "id") int id) {
+    public @ResponseBody
+    Rezept getRezept(@RequestParam(value = "id") int id) {
         Controller c = new Controller();
         return c.gibRezeptFuerId(id);
     }

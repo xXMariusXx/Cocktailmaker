@@ -1,4 +1,7 @@
-package hello;
+package getraenkeServer;
+
+import getraenkeServer.model.Rezept;
+import getraenkeServer.model.Zutat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,8 +94,12 @@ public class Controller {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
 
-            return new Rezept(id,   resultSet.getString("name"),
-                                    resultSet.getString("beschreibung"),
+            String name = resultSet.getString("name");
+            String beschr = resultSet.getString("beschreibung");
+            System.out.println(name);
+            System.out.println(beschr);
+            return new Rezept(id,   name,
+                                    beschr,
                                     gibZutatenFuerRezeptId(id));
 
         } catch (SQLException e) {

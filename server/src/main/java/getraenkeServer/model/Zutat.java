@@ -1,4 +1,4 @@
-package hello;
+package getraenkeServer.model;
 
 public class Zutat {
     private int id;

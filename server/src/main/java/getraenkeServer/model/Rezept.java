@@ -1,4 +1,4 @@
-package hello;
+package getraenkeServer.model;
 
 import java.util.List;
 
