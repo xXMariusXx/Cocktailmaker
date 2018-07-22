@@ -18,7 +18,7 @@ export class HomePage {
   zutatenSelected : Zutat[] = [];
 
   constructor(public navCtrl: NavController, public httpClient: HttpClient) {
-    this.apiResult = this.httpClient.get('http://localhost:8080/zutaten');
+    this.apiResult = this.httpClient.get('http://vps241627.ovh.net:8080/zutaten');
     this.apiResult.subscribe(data => {
         this.zutatenToShow = this.zutaten = data;
     })

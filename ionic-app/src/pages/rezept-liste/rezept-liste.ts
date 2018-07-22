@@ -21,7 +21,7 @@ export class RezeptListe {
   constructor(private navCtrl: NavController, navParams: NavParams, public httpClient: HttpClient) {
     console.log(navParams);
     this.zutatenToShow = navParams.get("zutaten");
-    httpClient.post("http://localhost:8080/rezept/find", this.zutatenToShow).subscribe( (data:Rezepte[])=> {
+    httpClient.post("http://vps241627.ovh.net:8080/rezept/find", this.zutatenToShow).subscribe( (data:Rezepte[])=> {
       this.gefundeneRezepte = this.gefundeneRezepte.concat(data);
     });
   }
