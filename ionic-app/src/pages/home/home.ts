@@ -1,45 +1,54 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RezeptListe } from "../rezept-liste/rezept-liste.component";
+import { RezeptListe } from "../rezept-liste/rezept-liste";
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import {Zutaten} from "../../model/zutaten";
+import {Zutat} from "../../model/zutat";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
-  zutaten: Zutaten[] = [];
-  result : Observable<any>;
-  zutatentoShow : Zutaten[] = [];
-  constructor(public navCtrl: NavController, public httpClient: HttpClient) {
-    this.result = this.httpClient.get('http://localhost:8080/zutaten');
-    this.result
-      .subscribe(data => {
-        this.zutatentoShow = this.zutaten = data;
+  apiResult : Observable<any>;
 
-        console.log('my data: ', data);})}
+  zutaten: Zutat[] = [];
+  zutatenToShow : Zutat[] = [];
+  zutatenSelected : Zutat[] = [];
+
+  constructor(public navCtrl: NavController, public httpClient: HttpClient) {
+    this.apiResult = this.httpClient.get('http://localhost:8080/zutaten');
+    this.apiResult.subscribe(data => {
+        this.zutatenToShow = this.zutaten = data;
+    })
+  }
 
   getItems(ev: any) {
-    // Reset items back to all of the items
-    //this.initializeZutaten();
-
     // set val to the value of the searchbar
     const searchString = ev.target.value;
 
     // if the value is an empty string don't filter the items
-    if (searchString &&  searchString.trim()  != '') {
-      this.zutatentoShow = this.zutaten.filter((zutat) => {
+    if (searchString && searchString.trim()  != '') {
+      this.zutatenToShow = this.zutaten.filter((zutat) => {
         return (zutat.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
       });
-    }else if(searchString.trim()  == '') this.zutatentoShow = this.zutaten;
+    } else if (searchString.trim() == '') this.zutatenToShow = this.zutaten;
   }
 
-  presentActionSheet(ev: any)
-  {
-    this.navCtrl.push(RezeptListe, {"gewaehlteZutaten": this.zutaten});
-
+  updateChecked(ev: any, zutat: Zutat) {
+    if (ev.checked)
+      this.zutatenSelected.push(zutat);
+    else
+      this.removeElement(this.zutatenSelected, zutat)
   }
 
+  presentErgebnisListe(ev: any) {
+    this.navCtrl.push(RezeptListe, {"zutaten": this.zutatenSelected});
+  }
+
+  removeElement(arr: any[] , element: any){
+    arr.forEach( (item, index) => {
+      if(item === element) arr.splice(index,1);
+    });
+  }
 }

@@ -14,14 +14,12 @@
 
   <ion-list>
 
-    <ion-item *ngFor="let zutat of zutatentoShow">
+    <ion-item *ngFor="let zutat of zutatenToShow">
       <ion-label>{{ zutat.name }}</ion-label>
-      <ion-checkbox color="blue" checked="false"></ion-checkbox>
+      <ion-checkbox color="blue" checked="false" (ionChange)="updateChecked($event, zutat)"></ion-checkbox>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button color="danger" (click)="presentActionSheet($event)" round>Generate Cocktails</button>
-
-
+  <button ion-button color="danger" (click)="presentErgebnisListe($event)" round>Generate Cocktails</button>
 </ion-content>
