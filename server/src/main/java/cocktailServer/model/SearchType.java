@@ -1,4 +1,4 @@
-package getraenkeServer.model;
+package cocktailServer.model;
 
 public enum SearchType{
     Exclusive,

@@ -1,4 +1,4 @@
-package getraenkeServer.model;
+package cocktailServer.model;
 
 public class FindRezeptRequest {
     private Zutat[] zutaten;

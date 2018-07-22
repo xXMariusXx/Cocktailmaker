@@ -1,7 +1,7 @@
-package getraenkeServer;
+package cocktailServer;
 
-import getraenkeServer.model.Rezept;
-import getraenkeServer.model.FindRezeptRequest;
+import cocktailServer.model.Rezept;
+import cocktailServer.model.FindRezeptRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

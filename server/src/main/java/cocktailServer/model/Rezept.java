@@ -1,4 +1,4 @@
-package getraenkeServer.model;
+package cocktailServer.model;
 
 import java.util.List;
 

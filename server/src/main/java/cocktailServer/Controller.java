@@ -1,8 +1,8 @@
-package getraenkeServer;
+package cocktailServer;
 
-import getraenkeServer.model.Rezept;
-import getraenkeServer.model.SearchType;
-import getraenkeServer.model.Zutat;
+import cocktailServer.model.Rezept;
+import cocktailServer.model.SearchType;
+import cocktailServer.model.Zutat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 
 public class Controller {
