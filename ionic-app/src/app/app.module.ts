@@ -11,13 +11,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RezeptListe } from "../pages/rezept-liste/rezept-liste";
 import { ServiceProvider } from '../providers/service/service';
 import { HttpClientModule } from "@angular/common/http";
+import {RezeptDetailPage} from "../pages/rezept-detail/rezept-detail";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     TabsPage,
-    RezeptListe
+    RezeptListe,
+    RezeptDetailPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { HttpClientModule } from "@angular/common/http";
     MyApp,
     HomePage,
     TabsPage,
-    RezeptListe
+    RezeptListe,
+    RezeptDetailPage
   ],
   providers: [
     StatusBar,
