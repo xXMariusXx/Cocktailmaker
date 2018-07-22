@@ -16,12 +16,12 @@ public class RezeptController {
     @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
     Rezept getRezept(@RequestParam(value = "id") int id) {
-        return Controller.gibRezeptFuerId(id);
+        return DataManager.gibRezeptFuerId(id);
     }
 
     @PostMapping(value = "/find", produces = "application/json")
     public @ResponseBody
     List<Rezept> findRezepte(@RequestBody FindRezeptRequest obj) {
-        return Controller.gibRezepteNamenIDfuerZutaten(obj.getSearchType(), obj.getZutaten());
+        return DataManager.gibRezepteNamenIDfuerZutaten(obj.getSearchType(), obj.getZutaten());
     }
 }

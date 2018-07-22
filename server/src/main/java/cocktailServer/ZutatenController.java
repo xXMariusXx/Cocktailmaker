@@ -11,6 +11,6 @@ import java.util.ArrayList;
 public class ZutatenController {
     @RequestMapping("/zutaten")
     public ArrayList zutaten() {
-        return Controller.gibZutatenliste();
+        return DataManager.gibZutatenliste();
     }
 }
