@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("rezept")
+@CrossOrigin("*")
 public class RezeptController {
     public RezeptController() {
     }

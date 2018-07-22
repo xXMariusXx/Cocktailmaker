@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import {Zutat} from "../../model/zutat";
+import {HttpClient} from "@angular/common/http";
+import {Rezepte} from "../../model/rezepte";
 
 /**
  * Generated class for the RezeptListe page.
@@ -14,9 +16,12 @@ import {Zutat} from "../../model/zutat";
 })
 export class RezeptListe {
   zutatenToShow: Zutat[];
-
-  constructor(public navParams: NavParams) {
+  gefundeneRezepte:Rezepte[] = [];
+  constructor(public navParams: NavParams, public httpClient: HttpClient) {
     console.log(navParams);
     this.zutatenToShow = navParams.get("zutaten");
+    httpClient.post("http://localhost:8080/rezept/find", this.zutatenToShow).subscribe( (data:Rezepte[])=> {
+      this.gefundeneRezepte = this.gefundeneRezepte.concat(data);
+    });
   }
 }

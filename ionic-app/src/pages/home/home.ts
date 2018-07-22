@@ -46,7 +46,7 @@ export class HomePage {
     this.navCtrl.push(RezeptListe, {"zutaten": this.zutatenSelected});
   }
 
-  removeElement(arr: any[] , element: any){
+  removeElement<T>(arr: T[] , element: T){
     arr.forEach( (item, index) => {
       if(item === element) arr.splice(index,1);
     });
