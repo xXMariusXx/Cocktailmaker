@@ -1,5 +1,6 @@
-package cocktailServer;
+package cocktailServer.controller;
 
+import cocktailServer.DataManager;
 import cocktailServer.model.Rezept;
 import cocktailServer.model.FindRezeptRequest;
 import org.springframework.web.bind.annotation.*;
