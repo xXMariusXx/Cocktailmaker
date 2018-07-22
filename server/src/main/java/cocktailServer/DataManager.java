@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class Controller {
+public class DataManager {
     public static ArrayList<Zutat> gibZutatenliste()
     {
         MySQLAccess mySQLAccess = new MySQLAccess();
