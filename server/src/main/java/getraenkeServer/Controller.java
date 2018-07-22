@@ -14,8 +14,7 @@ import java.util.function.BinaryOperator;
 
 
 public class Controller {
-
-    public ArrayList<Zutat> gibZutatenliste()
+    public static ArrayList<Zutat> gibZutatenliste()
     {
         MySQLAccess mySQLAccess = new MySQLAccess();
 
@@ -47,7 +46,7 @@ public class Controller {
         return zutaten;
     }
 
-    public List<Rezept> gibRezepteNamenIDfuerZutaten(SearchType searchType, Zutat[] zutaten)
+    public static List<Rezept> gibRezepteNamenIDfuerZutaten(SearchType searchType, Zutat[] zutaten)
     {
         if (zutaten.length < 1) return null;
 
@@ -85,7 +84,7 @@ public class Controller {
     }
 
 
-    public ArrayList<Zutat> gibZutatenFuerRezeptId(int id)
+    public static ArrayList<Zutat> gibZutatenFuerRezeptId(int id)
     {
         ArrayList<Zutat> list = new ArrayList<>();
 
@@ -117,7 +116,7 @@ public class Controller {
         return list;
     }
 
-    public Rezept gibRezeptFuerId(int id) {
+    public static Rezept gibRezeptFuerId(int id) {
         String sql = "SELECT name, beschreibung FROM rezepte WHERE id = " + id;
 
         MySQLAccess mySQLAccess = new MySQLAccess();
