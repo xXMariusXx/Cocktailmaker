@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import {Zutat} from "../../model/zutat";
 import {HttpClient} from "@angular/common/http";
 import {Rezepte} from "../../model/rezepte";
+import {findRezeptModel} from "../../model/findRezeptModel";
 
 /**
  * Generated class for the RezeptListe page.
@@ -15,7 +15,7 @@ import {Rezepte} from "../../model/rezepte";
   templateUrl: 'rezept-liste.html',
 })
 export class RezeptListe {
-  zutatenToShow: Zutat[];
+  zutatenToShow: findRezeptModel;
   gefundeneRezepte:Rezepte[] = [];
   constructor(public navParams: NavParams, public httpClient: HttpClient) {
     console.log(navParams);

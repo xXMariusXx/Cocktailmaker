@@ -1,12 +1,14 @@
 package getraenkeServer;
 
 import getraenkeServer.model.Rezept;
+import getraenkeServer.model.SearchType;
 import getraenkeServer.model.Zutat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 
 public class Controller {
 
@@ -42,7 +44,7 @@ public class Controller {
         return zutaten;
     }
 
-    public ArrayList gibRezepteNamenIDfuerZutaten(Zutat[] zutaten)
+    public ArrayList gibRezepteNamenIDfuerZutaten(SearchType searchType, Zutat[] zutaten)
     {
         ArrayList<Rezept> passendeRezepte = new ArrayList<>();
 

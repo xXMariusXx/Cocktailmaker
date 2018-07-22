@@ -4,6 +4,7 @@ import { RezeptListe } from "../rezept-liste/rezept-liste";
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import {Zutat} from "../../model/zutat";
+import {findRezeptModel, searchType} from "../../model/findRezeptModel";
 
 @Component({
   selector: 'page-home',
@@ -43,7 +44,7 @@ export class HomePage {
   }
 
   presentErgebnisListe(ev: any) {
-    this.navCtrl.push(RezeptListe, {"zutaten": this.zutatenSelected});
+    this.navCtrl.push(RezeptListe, {"zutaten": <findRezeptModel>{searchtype:searchType.Subset , zutaten: this.zutatenSelected}});
   }
 
   removeElement<T>(arr: T[] , element: T){

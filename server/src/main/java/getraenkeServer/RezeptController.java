@@ -1,8 +1,10 @@
 package getraenkeServer;
 
 import getraenkeServer.model.Rezept;
-import getraenkeServer.model.Zutat;
+import getraenkeServer.model.findRezeptRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("rezept")
@@ -19,8 +21,9 @@ public class RezeptController {
     }
 
     @PostMapping(value = "/find", produces = "application/json")
-    public @ResponseBody Object findRezepte(@RequestBody Zutat[] obj) {
+    public @ResponseBody
+    List<Rezept> findRezepte(@RequestBody  findRezeptRequest obj) {
         Controller c = new Controller();
-        return c.gibRezepteNamenIDfuerZutaten(obj);
+        return c.gibRezepteNamenIDfuerZutaten(obj.getSearchType(), obj.getZutaten());
     }
 }
