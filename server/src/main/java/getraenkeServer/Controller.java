@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BinaryOperator;
 
 
 public class Controller {
@@ -44,11 +47,41 @@ public class Controller {
         return zutaten;
     }
 
-    public ArrayList gibRezepteNamenIDfuerZutaten(SearchType searchType, Zutat[] zutaten)
+    public List<Rezept> gibRezepteNamenIDfuerZutaten(SearchType searchType, Zutat[] zutaten)
     {
-        ArrayList<Rezept> passendeRezepte = new ArrayList<>();
+        if (zutaten.length < 1) return null;
 
-        return passendeRezepte;
+        String zutatenSet = Arrays.stream(zutaten)
+                            .map(zutat -> Integer.toString(zutat.getId()) + ", ")
+                            .reduce(String::concat).get();
+        zutatenSet = zutatenSet.substring(0, zutatenSet.length() - 2);
+
+        String sql =    "SELECT r.* FROM rezept_zutaten " +
+                        "INNER JOIN rezepte r on rezept_zutaten.rezept_id = r.id " +
+                        "WHERE zutat_id IN (" + zutatenSet + ") " +
+                        "GROUP BY rezept_id HAVING count(*) <= " + zutaten.length +
+                        " LIMIT 50";
+
+        MySQLAccess mySQLAccess = new MySQLAccess();
+
+        List<Rezept> rezepte = new ArrayList<>();
+        try {
+            PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int rezeptId = resultSet.getInt("r.id");
+                rezepte.add(new Rezept(rezeptId,
+                                       resultSet.getString("r.name"),
+                                       resultSet.getString("r.beschreibung"),
+                                       gibZutatenFuerRezeptId(rezeptId)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return rezepte;
     }
 
 
@@ -58,7 +91,7 @@ public class Controller {
 
         String sql = "SELECT zutat_id, menge, z.name, z.alkohol " +
                 "FROM rezept_zutaten INNER JOIN zutaten z " +
-                "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + Integer.toString(id);
+                "ON rezept_zutaten.zutat_id = z.id WHERE rezept_id = " + id;
         MySQLAccess mySQLAccess = new MySQLAccess();
         try {
             PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
@@ -96,12 +129,8 @@ public class Controller {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
 
-            String name = resultSet.getString("name");
-            String beschr = resultSet.getString("beschreibung");
-            System.out.println(name);
-            System.out.println(beschr);
-            return new Rezept(id,   name,
-                                    beschr,
+            return new Rezept(id,   resultSet.getString("name"),
+                                    resultSet.getString("beschreibung"),
                                     gibZutatenFuerRezeptId(id));
 
         } catch (SQLException e) {
