@@ -6,10 +6,24 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class MySQLAccess {
+    private static MySQLAccess instance;
+
+    public static MySQLAccess getInstance() {
+        if (instance == null) instance = new MySQLAccess();
+        return instance;
+    }
+
+    public MySQLAccess() {
+        //this.connect();
+    }
 
     private static final String DATABASE_URL = "jdbc:mysql://51.255.49.81:3306/mysqlDoHack18";
     private static final String USERNAME = "mysqlDoHack18";
     private static final String PASSWORD = "myPWDoHack18";
+
+    public Connection getConnection() {
+        return connection;
+    }
 
     private Connection connection;
     private Properties properties;
