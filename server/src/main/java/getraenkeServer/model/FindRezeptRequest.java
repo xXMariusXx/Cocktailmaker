@@ -1,10 +1,13 @@
 package getraenkeServer.model;
 
-public class findRezeptRequest {
+public class FindRezeptRequest {
     private Zutat[] zutaten;
     private SearchType searchType;
 
-    public findRezeptRequest(Zutat[] zutaten, SearchType searchType) {
+    public FindRezeptRequest() {
+    }
+
+    public FindRezeptRequest(Zutat[] zutaten, SearchType searchType) {
         this.zutaten = zutaten;
         this.searchType = searchType;
     }
