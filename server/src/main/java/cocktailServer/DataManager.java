@@ -7,9 +7,9 @@ import cocktailServer.model.Zutat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class DataManager {
@@ -54,11 +54,17 @@ public class DataManager {
                             .reduce(String::concat).get();
         zutatenSet = zutatenSet.substring(0, zutatenSet.length() - 2);
 
-        String sql =    "SELECT r.* FROM rezept_zutaten " +
+        /*String sql =    "SELECT r.* FROM rezept_zutaten " +
                         "INNER JOIN rezepte r on rezept_zutaten.rezept_id = r.id " +
                         "WHERE zutat_id IN (" + zutatenSet + ") " +
                         "GROUP BY rezept_id HAVING count(*) <= " + zutaten.length +
-                        " LIMIT 50";
+                        " LIMIT 50";*/
+        /*String sql =    "SELECT rezept_zutaten.rezept_id FROM rezept_zutaten " +
+                        "LEFT JOIN (SELECT id FROM zutaten WHERE id IN ("+zutatenSet+")) z on rezept_zutaten.zutat_id = z.id " +
+                        "GROUP BY rezept_zutaten.rezept_id " +
+                        "HAVING count(z.id) = (SELECT COUNT(*) FROM zutaten WHERE id IN (" + zutatenSet + ")) LIMIT 10";
+        */
+        String sql = "SELECT * FROM rezept_zutaten";
 
         MySQLAccess mySQLAccess = new MySQLAccess();
 
@@ -67,13 +73,30 @@ public class DataManager {
             PreparedStatement statement = mySQLAccess.connect().prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
+            Map<Integer, List<Integer>> badIdea = new HashMap<>();
+
             while (resultSet.next()) {
-                int rezeptId = resultSet.getInt("r.id");
-                rezepte.add(new Rezept(rezeptId,
-                                       resultSet.getString("r.name"),
-                                       resultSet.getString("r.beschreibung"),
-                                       gibZutatenFuerRezeptId(rezeptId)));
+                int rezept_id = resultSet.getInt("rezept_id");
+                int zutat_id = resultSet.getInt("zutat_id");
+
+                if (badIdea.containsKey(rezept_id)) {
+                    badIdea.get(rezept_id).add(zutat_id);
+                } else {
+                    badIdea.put(rezept_id, new ArrayList<>(zutat_id));
+                }
             }
+
+            List<Integer> zutatenIDsGesucht = Arrays.stream(zutaten)
+                                                .map(Zutat::getId)
+                                                .collect(Collectors.toList());
+
+            badIdea = badIdea.entrySet()
+                    .stream()
+                    .filter(integerListEntry ->
+                                    zutatenIDsGesucht.containsAll(integerListEntry.getValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+            badIdea.forEach((rezept_id, zutaten_ids) -> rezepte.add(gibRezeptFuerId(rezept_id)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
